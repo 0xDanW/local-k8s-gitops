@@ -1,6 +1,6 @@
 # local-k8s-gitops
 
-Kubernetes workloads declared in git, spun up/down on a local single-node colima cluster (k3s + containerd).
+Kubernetes workloads declared in git, spun up/down on a local single-node colima cluster (k3s + docker).
 
 ## Dependencies
 
@@ -13,7 +13,7 @@ brew install colima kubectl kustomize helm yq kubeconform
 ## Cluster setup
 
 ```sh
-make cluster-up      # colima start --runtime containerd --kubernetes
+make cluster-up      # colima start --runtime docker --kubernetes
 make status
 ```
 
@@ -43,6 +43,16 @@ make up-all / make down-all
 # vendor a chart into charts/<name>
 make pull-chart W=redis CHART=oci://registry-1.docker.io/bitnamicharts/redis VERSION=20.1.0
 make pull-chart W=grafana CHART=grafana VERSION=8.5.0 REPO=https://grafana.github.io/helm-charts
+```
+
+## Ingress (local DNS)
+
+`kustomize/traefik` is the ingress controller (default IngressClass). k3s servicelb binds it to the VM's :80/:443 and colima forwards those to `127.0.0.1`. `*.localhost` resolves to 127.0.0.1 on macOS, so any Ingress host like `<app>.localhost` works without `/etc/hosts`.
+
+```sh
+make up W=traefik
+make up W=hello-web
+curl http://hello.localhost      # or open in a browser
 ```
 
 ## Layout

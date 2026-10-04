@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-Local GitOps repo: k8s workloads for a single-node colima cluster (k3s, containerd). See README.md for commands.
+Local GitOps repo: k8s workloads for a single-node colima cluster (k3s, docker runtime). See README.md for commands.
 
 ## Conventions
 - `kustomize/<name>/` — `kustomization.yaml` with plain manifests and/or `helmCharts:` (public repo, pinned `version`). Rendered with `kustomize build --enable-helm`. No hardcoded `namespace:`; scripts deploy everything into the shared ns `$NAMESPACE` (default `default`).

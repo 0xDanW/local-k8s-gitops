@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Manage the single-node colima k8s cluster (k3s + containerd).
+# Manage the single-node colima k8s cluster (k3s + docker).
 # Usage: cluster.sh up|stop|delete|status
 source "$(dirname "$0")/common.sh"
 require colima kubectl
@@ -7,9 +7,9 @@ require colima kubectl
 cmd="${1:-}"
 case "$cmd" in
   up)
-    log "starting colima profile '$COLIMA_PROFILE' (k8s, containerd)"
+    log "starting colima profile '$COLIMA_PROFILE' (k8s, docker)"
     args=(start --profile "$COLIMA_PROFILE"
-          --runtime containerd --kubernetes
+          --runtime docker --kubernetes
           --cpu "$COLIMA_CPU" --memory "$COLIMA_MEMORY" --disk "$COLIMA_DISK")
     [[ -n "$K8S_VERSION" ]] && args+=(--kubernetes-version "$K8S_VERSION")
     colima "${args[@]}"

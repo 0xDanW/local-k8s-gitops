@@ -17,7 +17,7 @@ fi
 type="$(workload_type "$name")"
 
 ensure_ns() {
-  kc create namespace "$NAMESPACE" --dry-run=client -o yaml | kc apply -f - >/dev/null
+  kc get namespace "$NAMESPACE" >/dev/null 2>&1 || kc create namespace "$NAMESPACE"
 }
 
 case "$cmd:$type" in
