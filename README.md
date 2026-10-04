@@ -66,7 +66,7 @@ make pull-chart W=grafana CHART=grafana VERSION=8.5.0 REPO=https://grafana.githu
 ```sh
 make up W=traefik
 make up W=hello-web
-curl http://hello.localhost      # or open in a browser
+curl http://hello-web.localhost      # or open in a browser
 ```
 
 ## Layout
