@@ -1,6 +1,6 @@
 # local-k8s-gitops
 
-Kubernetes workloads declared in git, spun up/down on a local single-node colima cluster (k3s + docker).
+My kubernetes workloads declared in git, spun up/down on a local single-node colima cluster (k3s + docker).
 
 ## Dependencies
 
