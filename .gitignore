@@ -1,0 +1,7 @@
+.DS_Store
+*.tgz
+*.local.env
+secrets/
+build/
+# chart cache written by `kustomize build --enable-helm`
+kustomize/*/charts/
