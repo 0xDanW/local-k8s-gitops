@@ -26,7 +26,21 @@ COLIMA_PROFILE=dev make cluster-up   # context becomes colima-dev
 
 All scripts pin `--context` to the colima context, so other clusters in your kubeconfig are never touched.
 
-`make cluster-stop` pauses the VM; `make cluster-delete` wipes it.
+## Bring up / tear down
+
+```sh
+# bring up
+make cluster-up          # start VM + k3s (creates it on first run)
+make up-all              # deploy every workload (or: make up W=<name>)
+
+# tear down (default)
+make cluster-stop        # remove all workloads, then stop the VM
+
+# hard nuke
+make cluster-delete      # delete VM, cluster, cached images and volumes
+```
+
+`cluster-stop` keeps the VM, k3s and cached images, so the next `cluster-up` is fast and starts with an empty cluster. `cluster-delete` rebuilds from scratch on the next `cluster-up`; use it when the cluster is broken or to change the runtime.
 
 ## Usage
 

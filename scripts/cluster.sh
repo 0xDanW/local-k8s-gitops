@@ -17,9 +17,17 @@ case "$cmd" in
     kc get nodes -o wide
     ;;
   stop)
+    # Tear down workloads first so the next `up` starts from a clean cluster.
+    if kc get --raw /readyz >/dev/null 2>&1; then
+      log "removing all workloads"
+      list_workloads | while read -r n _; do "$ROOT_DIR/scripts/workload.sh" down "$n"; done
+    else
+      log "cluster not reachable; skipping workload teardown"
+    fi
     colima stop --profile "$COLIMA_PROFILE"
     ;;
   delete)
+    log "deleting colima profile '$COLIMA_PROFILE' (VM, cluster, images, volumes)"
     colima delete --profile "$COLIMA_PROFILE" --force
     ;;
   status)

@@ -12,10 +12,10 @@ help: ## Show targets
 cluster-up: ## Start colima k8s cluster
 	@$(S)/cluster.sh up
 
-cluster-stop: ## Stop cluster (keeps state)
+cluster-stop: ## Remove all workloads, then stop the VM
 	@$(S)/cluster.sh stop
 
-cluster-delete: ## Delete cluster and all state
+cluster-delete: ## Hard nuke: delete VM, cluster, images, volumes
 	@$(S)/cluster.sh delete
 
 status: ## Cluster status
